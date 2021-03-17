@@ -42,37 +42,61 @@ import UIKit
 
 class ViewController: UIViewController {
     
-    let list = [["4+2=3","False"],["5+2+3=10","True"],["2+2+2=6","True"]]
+    let list = [
+        Question(names: "1+3=5", answers: "False"),
+        Question(names: "1+4=5", answers: "True"),
+        Question(names: "1+8=5", answers: "False"),
+        Question(names: "1+3=9", answers: "False")
+    ]
     var index = 0
     var mark: Float = 0.00
     
-
+    @IBOutlet weak var falseButton: UIButton!
+    
+    @IBOutlet weak var trueButton: UIButton!
+    
     @IBOutlet weak var progressBar: UIProgressView!
     @IBOutlet weak var question: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        question.text = list[0][0]
+        question.text = list[0].name
         progressBar.progress = mark
     }
 
     @IBAction func answerButton(_ sender: UIButton) {
-        if sender.currentTitle == list[index][1] {print("GOOD JOB")
+        if sender.currentTitle == list[index].answer {
+            sender.borderColor = UIColor.green
+            print("GOOD JOB")
             mark += 0.30
-        }else{print("Wrong Bro")
+        }else{
+            sender.borderColor = UIColor.red
+            print("Wrong Bro")
             mark -= 0.30
         }
-        update()
+        Timer.scheduledTimer(timeInterval: 0.6, target: self, selector: #selector(update), userInfo: nil, repeats: false)
+        
+      
     }
-    func update()  {
+    @objc func update()  {
         if index == list.count - 1 {
             index = 0
             
         }else {
             index += 1
         }
-       
-        question.text = list[index][0]
+        trueButton.borderColor = UIColor.blue
+        falseButton.borderColor = UIColor.blue
+        question.text = list[index].name
         progressBar.progress = mark
     }
 }
 
+struct Question {
+    var name: String
+    var answer: String
+    
+    init(names: String, answers: String) {
+        self.name = names
+        self.answer = answers
+    }
+}
