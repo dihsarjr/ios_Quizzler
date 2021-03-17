@@ -41,12 +41,38 @@ import UIKit
 }
 
 class ViewController: UIViewController {
+    
+    let list = [["4+2=3","False"],["5+2+3=10","True"],["2+2+2=6","True"]]
+    var index = 0
+    var mark: Float = 0.00
+    
 
+    @IBOutlet weak var progressBar: UIProgressView!
+    @IBOutlet weak var question: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
+        question.text = list[0][0]
+        progressBar.progress = mark
     }
 
-
+    @IBAction func answerButton(_ sender: UIButton) {
+        if sender.currentTitle == list[index][1] {print("GOOD JOB")
+            mark += 0.30
+        }else{print("Wrong Bro")
+            mark -= 0.30
+        }
+        update()
+    }
+    func update()  {
+        if index == list.count - 1 {
+            index = 0
+            
+        }else {
+            index += 1
+        }
+       
+        question.text = list[index][0]
+        progressBar.progress = mark
+    }
 }
 
