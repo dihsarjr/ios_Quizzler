@@ -1,11 +1,7 @@
-//
-//  ViewController.swift
-//  Quizzier
-//
-//  Created by Rashid on 16/03/21.
-//
+
 
 import UIKit
+
 
 
 @IBDesignable extension UIButton {
@@ -33,7 +29,7 @@ import UIKit
             guard let uiColor = newValue else { return }
             layer.borderColor = uiColor.cgColor
         }
-        get {
+        get {   
             guard let color = layer.borderColor else { return nil }
             return UIColor(cgColor: color)
         }
@@ -91,12 +87,4 @@ class ViewController: UIViewController {
     }
 }
 
-struct Question {
-    var name: String
-    var answer: String
-    
-    init(names: String, answers: String) {
-        self.name = names
-        self.answer = answers
-    }
-}
+
